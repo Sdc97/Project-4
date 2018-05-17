@@ -10,7 +10,10 @@ public class GitTest {
 		System.out.println("Hi again^2");
 
 		System.out.println("goodbye");
-
+		
+		System.out.println("Hello");
+		
+		System.out.println("This is an update");
 	}
 	
 	
