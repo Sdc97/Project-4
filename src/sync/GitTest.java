@@ -16,6 +16,8 @@ public class GitTest {
 		System.out.println("This is an update");
 		
 		System.out.println("Can this be seen on slack?");
+
+		System.out.println("¯\\_(ツ)_/¯");
 	}
 	
 	
