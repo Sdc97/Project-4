@@ -113,12 +113,12 @@ class Player
 	{
 		if (Wheel.payoff(bet, betType, number) > 0)
 		{
-			System.out.println(getName() + " won $" + Wheel.payoff(bet, betType, number));
+			System.out.println(" won $" + Wheel.payoff(bet, betType, number));
 			money = money + Wheel.payoff(bet, betType, number);
 		}
 		if (Wheel.payoff(bet, betType, number) < 0)
 		{
-			System.out.println(getName() + " lost $" + -Wheel.payoff(bet, betType, number));
+			System.out.println(" lost $" + -Wheel.payoff(bet, betType, number));
 		}
 	}
 	public int getWinning() // Keep updating self
@@ -157,12 +157,12 @@ class Player
 	{
 		if (winning >= 0)
 		{
-			String result = getName() + " After " + betCount +" bets, "+ getName()+ " has won $" + winning;
+			String result = " After " + betCount +" bets, "+ " has won $" + winning;
 			return result;
 		}
 		else
 		{
-			String result = getName() + " After " + betCount +" bets, "+ getName()+ " has lost $" + -winning;
+			String result = " After " + betCount +" bets, "+" has lost $" + -winning;
 			return result;
 		}
 	}  // method toString
