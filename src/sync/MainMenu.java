@@ -18,9 +18,4 @@ public class MainMenu
 		//while(choice)
 	}
 
-	private static Scanner Scanner(InputStream in) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
