@@ -17,7 +17,7 @@ import java.util.Scanner;
 //************************************************************************
 class Player
 {
-	private static final int RELOAD_AMOUNT = 0;
+	private int RELOAD_AMOUNT;
 	private int money,bet;
 	private int betType;
 	private int number;
@@ -25,6 +25,7 @@ class Player
 	private int winning;
 	private int reloads = 0;
 	private int initialmoney;
+	private int choice;
 
 
 	//=====================================================================
@@ -49,10 +50,8 @@ class Player
 	//=====================================================================
 	public void makeBet(Scanner scan)
 	{
-		int i =0;
-		int j =0;
-		int k =0;
-
+		int i = 0;
+		int j = 0;
 		/*if (money <= 0)
 		{
 			System.out.println("You have lost all of your money!");
@@ -62,49 +61,81 @@ class Player
 			System.out.println("");
 			reloads++;
 		}*/
-		while(j != 1)
-		{
-			System.out.println(" Enter your choice of bet: ");
-			betType = scan.nextInt();
-			if(betType <= 3 && betType >= 1)
-			{
-				j =1;
-			}
-			else
-			{
-				System.out.println("Please enter a valid options between 1-3"); 
-				j=0;
-			}
-		}
-		if (betType == 3)
-		{
-			while(k != 1) 
-			{
-				System.out.println("Enter the desire number between 1-36: ");
-				number = scan.nextInt();
-				if(number >= Wheel.MIN_NUM && number <= Wheel.MAX_NUM)
-				{
-					k=1;
-				}
-				else
-				{
-					System.out.println("Please enter a valid number between 1-36.");
-					k =0;
-				}
-			}
-		}
+
+
 		while(i != 1)
 		{
-			System.out.print(" How much to bet: ");
-			bet = scan.nextInt();
-			if(bet >= Wheel.MIN_BET && bet <= Wheel.MAX_BET)
+			System.out.println("1.Enter bet");
+			System.out.println("2.Reload");
+			System.out.println("3.Exit Game");
+			choice = scan.nextInt();
+			if(choice >= 1 && choice <= 3)
 			{
-				money = money - bet;
-				i =1;
+				switch(choice)
+				{ 
+				case 0:
+					while(i != 1)
+					{
+						System.out.println("Enter your choice of bet: ");
+						betType = scan.nextInt();
+						if(betType <= 3 && betType >= 1)
+						{
+							i =1;
+						}
+						else
+						{
+							System.out.println("Please enter a valid options between 1-3"); 
+							i=0;
+						}
+					}
+					if (betType == 3)
+					{
+						while(i != 1) 
+						{
+							System.out.println("Enter the desire number between 1-36: ");
+							number = scan.nextInt();
+							if(number >= Wheel.MIN_NUM && number <= Wheel.MAX_NUM)
+							{
+								i=1;
+							}
+							else
+							{
+								System.out.println("Please enter a valid number between 1-36.");
+								i =0;
+							}
+						}
+					}
+					while(i != 1)
+					{
+						System.out.print(" How much to bet: ");
+						bet = scan.nextInt();
+						if(bet >= Wheel.MIN_BET && bet <= Wheel.MAX_BET)
+						{
+							money = money - bet;
+							i =1;
+						}
+						else
+						{
+							System.out.println("Please enter a valid entry");
+							i =0;
+						}
+
+					}
+					break;
+				case 1:
+					System.out.println("Enter the amount you want to reload by: ");
+					RELOAD_AMOUNT = scan.nextInt();
+					money += RELOAD_AMOUNT;
+					System.out.println("Money available: " + money);
+					break;
+				case 2:
+					
+					break;
+				}
 			}
 			else
 			{
-				System.out.println("Please enter a valid bet amount between $1 -$10.");
+				System.out.println("Please enter a valid entry");
 				i =0;
 			}
 		}
@@ -134,6 +165,7 @@ class Player
 			return winning;
 		}
 	}
+		
 	//=====================================================================
 	//  Determines if the player wants to play again.
 	//=====================================================================
