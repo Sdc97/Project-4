@@ -37,6 +37,7 @@ public class Game {
 		System.out.println("2. Play one round");
 		System.out.println("3. Game status");
 		System.out.println("4. Return to the main menu");
+		choice = scan.nextLine();
 		
 	}
 	
