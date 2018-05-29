@@ -11,6 +11,7 @@
 */
 package sync;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
@@ -22,7 +23,7 @@ public class Game {
 	private int maxBet;
 	private int houseMoney;
 	
-	Player[] players = new Player[5];
+	ArrayList<Player> players = new ArrayList<Player>();
 	private static Queue<Player> playerQ = new LinkedList<Player>();
 	public int currentPlayers = 0;
 	private Scanner scan = new Scanner(System.in);
@@ -59,7 +60,10 @@ public class Game {
 	}
 	
 	public void addPlayer() {
-		players[currentPlayers] = playerQ.remove();
+		players.add(playerQ.remove());
 	}
 	
+	public void removePlayer(Player p) {
+		players.remove(p);
+	}
 }
