@@ -12,58 +12,35 @@
 package sync;
 import java.util.Scanner;
 
-//************************************************************************
-// Class Player represents one roulette player.
-//************************************************************************
 class Player
 {
-	private int RELOAD_AMOUNT;
+	private int RELOAD_AMOUNT = 0;
 	private int money,bet;
 	private int betType;
 	private int number;
-	private int betCount = 0;
 	private int winning;
-	private int reloads = 0;
 	private int initialmoney;
 	private int choice;
+	private int count = 0;
+	private double betTotal = 0;
+	public int housewinning;
 
-
-	//=====================================================================
-	//  The Player constructor sets up  name and initial available money.
-	//=====================================================================
 	public Player (int initialMoney)
 	{
 		money = initialMoney;
 		initialmoney = money;
-	} // constructor Player
+	}
 
-	//=====================================================================
-	//  Returns this player's current available money.
-	//=====================================================================
 	public int getMoney()
 	{
 		return money;
-	}  // method getMoney
+	}  
 
-	//=====================================================================
-	//  Prompts the user and reads betting information.
-	//=====================================================================
 	public void makeBet(Scanner scan)
 	{
 		int i = 0;
-		int j = 0;
-		/*if (money <= 0)
-		{
-			System.out.println("You have lost all of your money!");
-			System.out.println("It's okay though because we have automatticaly refill the amount by $50 ");
-			money = money + RELOAD_AMOUNT;
-			System.out.println("Money available: " +money);
-			System.out.println("");
-			reloads++;
-		}*/
-
-
-		while(i != 1)
+		
+		while(i != 1)//Menu
 		{
 			System.out.println("1.Enter bet");
 			System.out.println("2.Reload");
@@ -74,13 +51,14 @@ class Player
 				switch(choice)
 				{ 
 				case 0:
-					while(i != 1)
+					while(i != 1)//Playing
 					{
 						System.out.println("Enter your choice of bet: ");
 						betType = scan.nextInt();
 						if(betType <= 3 && betType >= 1)
 						{
 							i =1;
+							count++;
 						}
 						else
 						{
@@ -88,7 +66,7 @@ class Player
 							i=0;
 						}
 					}
-					if (betType == 3)
+					if (betType == 3)//if bet option is 3
 					{
 						while(i != 1) 
 						{
@@ -105,9 +83,9 @@ class Player
 							}
 						}
 					}
-					while(i != 1)
+					while(i != 1)//Bet amount
 					{
-						System.out.print(" How much to bet: ");
+						System.out.print("How much to bet: ");
 						bet = scan.nextInt();
 						if(bet >= Wheel.MIN_BET && bet <= Wheel.MAX_BET)
 						{
@@ -129,7 +107,7 @@ class Player
 					System.out.println("Money available: " + money);
 					break;
 				case 2:
-					
+					KeepPlaying(scan);
 					break;
 				}
 			}
@@ -139,63 +117,45 @@ class Player
 				i =0;
 			}
 		}
-	} // method makeBet
+	} 
 	public void payment()
 	{
 		if (Wheel.payoff(bet, betType, number) > 0)
 		{
-			System.out.println(" won $" + Wheel.payoff(bet, betType, number));
 			money = money + Wheel.payoff(bet, betType, number);
 		}
-		if (Wheel.payoff(bet, betType, number) < 0)
-		{
-			System.out.println(" lost $" + -Wheel.payoff(bet, betType, number));
-		}
 	}
-	public int getWinning() // Keep updating self
+	public double getbetTotal()
 	{
-		if (reloads > 0) 
-		{
-			winning = money - (initialmoney + RELOAD_AMOUNT);
-			return winning;
-		}
-		else
-		{
-			winning = money - initialmoney;	
-			return winning;
-		}
+		betTotal += bet;
+		return betTotal;
 	}
-		
-	//=====================================================================
-	//  Determines if the player wants to play again.
-	//=====================================================================
-	public boolean playAgain(Scanner scan)
+	public int getCount()
+	{
+		return count;
+	}
+	public int getWinning()
+	{
+			winning = money - (initialmoney + RELOAD_AMOUNT);
+			return winning;	
+	}
+	public int getHouseWinning()
+	{
+			housewinning = (initialmoney + RELOAD_AMOUNT) - money;
+			return housewinning;	
+	}
+	public boolean KeepPlaying(Scanner scan)
 	{
 		String answer;
-		System.out.print (" Keep playing [y/n]? ");
+		System.out.print (" You sure you want to quit [y/n]? ");
 		answer = scan.next();
 		return (answer.equals("y") || answer.equals("Y"));
-	}  // method playAgain
-
-	public int getCount() // get tries 
-	{
-		return betCount++;
-	}
-
-	//=====================================================================
-	//  Return relevant information about the player.
-	//=====================================================================
+	}  
 	public String toString()
 	{
-		if (winning >= 0)
-		{
-			String result = " After " + betCount +" bets, "+ " has won $" + winning;
-			return result;
-		}
-		else
-		{
-			String result = " After " + betCount +" bets, "+" has lost $" + -winning;
-			return result;
-		}
-	}  // method toString
+		String result = "Initital game balance: " + initialmoney;
+		result += "Ending game balance: " + money;
+		result += "Winning/Losing amount: " + housewinning;//House winning/losing
+		return result;
+	}
 }
