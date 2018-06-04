@@ -17,18 +17,15 @@ class Wheel
     public final static int GREEN     =  2;			// 00 OR 0
     public final static int NUMBER    =  3;			// number bet
     public final static int MIN_NUM   =  1;			// smallest number to bet
-    public final static int MAX_NUM   = 14;			// largest number to bet
-    public final static int MAX_BET   = 10;			// largest amount to bet
-    public final static int MIN_BET   = 1;			// smallest number to bet
-    public final static int RELOAD_VALUE = 50;
+    public final static int MAX_NUM   = 36;			// largest number to bet
 
     // private name constants -- internal use only
-    private final static int MAX_POSITIONS = 16;	// number of positions on wheel
+    private final static int MAX_POSITIONS = 38;	// number of positions on wheel
     private final static int NUMBER_PAYOFF = 14;	// payoff for number bet
     private final static int COLOR_PAYOFF  = 2;		// payoff for color bet
 
     // private variables -- internal use only
-    private static int ballPosition;				// 00, 0, 1 .. 14
+    private static int ballPosition;				
     private static int color;						// GREEN, RED, OR BLACK
 
 
@@ -37,12 +34,11 @@ class Wheel
     //=====================================================================
     public static void welcomeMessage()
     {
-      	System.out.println("Welcome to a simple version of roulette game.");
+      	System.out.println("Welcome to a advance version of roulette game.");
       	System.out.println("You can place a bet on black, red, or a number.");
       	System.out.println("A color bet is paid " + COLOR_PAYOFF + " times the bet amount.");
       	System.out.println("A number bet is paid " + NUMBER_PAYOFF + " times the bet amount.");
       	System.out.println("You can bet on a number from " + MIN_NUM + " to " + MAX_NUM + ".");
-      	System.out.println("You can bet an amount between $" + MIN_BET + " and $" + MAX_BET + ".");
       	System.out.println("Gamble responsibly.  Have fun and good luck!\n");
     }
 
@@ -64,17 +60,25 @@ class Wheel
     {
     	Random rng = new Random();
     	ballPosition = rng.nextInt(MAX_POSITIONS) + 1;
-    	if (ballPosition > 14) {
+    	if (ballPosition > 36) 
+    	{
     		color = 2;
-    		if (ballPosition == 15) {
+    		if (ballPosition == 37)
+    		{
     			System.out.println("Color is green, number is 0");
-    		} else {
+    		} 
+    		else 
+    		{
     			System.out.println("Color is green, number is 00");
     		}
-    	} else if (ballPosition % 2 == 0) {
+    	} 
+    	else if (ballPosition % 2 == 0) 
+    	{
     		color = 0;
     		System.out.println("Color is black, number is " + ballPosition);
-    	} else {
+    	} 
+    	else
+    	{
     		color = 1;
     		System.out.println("Color is red, number is " + ballPosition);
     	}
@@ -106,7 +110,7 @@ class Wheel
     		}
     		break;
     	default:
-    		System.out.println("Something messed up!");
+    		System.out.println("404: Balls not found");
     		break;
     	}
     	return payout;

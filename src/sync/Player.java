@@ -87,7 +87,7 @@ class Player
 					{
 						System.out.print("How much to bet: ");
 						bet = scan.nextInt();
-						if(bet >= Wheel.MIN_BET && bet <= Wheel.MAX_BET)
+						if(bet > 0)
 						{
 							money = money - bet;
 							i =1;
@@ -107,7 +107,7 @@ class Player
 					System.out.println("Money available: " + money);
 					break;
 				case 2:
-					KeepPlaying(scan);
+					KeepPlaying();
 					break;
 				}
 			}
@@ -144,12 +144,13 @@ class Player
 			housewinning = (initialmoney + RELOAD_AMOUNT) - money;
 			return housewinning;	
 	}
-	public boolean KeepPlaying(Scanner scan)
+	public boolean KeepPlaying(/*Scanner scan*/)
 	{
-		String answer;
+		/*String answer;
 		System.out.print (" You sure you want to quit [y/n]? ");
 		answer = scan.next();
-		return (answer.equals("y") || answer.equals("Y"));
+		return (answer.equals("y") || answer.equals("Y"));*/
+		return false;
 	}  
 	public String toString()
 	{
