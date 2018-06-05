@@ -46,7 +46,7 @@ public class Transactions
 		return betType;
 	}
 	
-	public int pay()
+	public int getPay()
 	{
 		return pay;
 	}
