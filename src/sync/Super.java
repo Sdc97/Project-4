@@ -53,7 +53,7 @@ public class Super extends Player
 		}
 	}
 	
-	public void makeBet(Scanner scan)
+	public void makeBet(Scanner scan, int minBet, int maxBet)
 	{
 		playedRound = true;
 		System.out.println(name + " has " + money + " chips");
@@ -72,7 +72,7 @@ public class Super extends Player
 			      	System.out.print("How much will " + name + " bet: ");
 			      	bet = scan.nextInt();
 			      	System.out.println(bet); // Only for use with text file input 
-			      	while (bet < Wheel.MIN_BET || bet > money) {
+			      	while (bet < minBet || bet > money || bet > maxBet) {
 			      		System.out.println("Bet is invalid. Please enter a valid bet amount!");
 			      		System.out.print("How much will " + name + " bet: ");
 			          	bet = scan.nextInt();

@@ -62,14 +62,18 @@ public class Game {
 					}
 					break;
 				case 2:
+					//Run through each player menu individually
 					for (int i = 0; i < players.size(); i++) {
 						System.out.println("\nPlayer " + (i + 1));
-						players.get(i).makeBet(scan);
+						players.get(i).makeBet(scan, minBet, maxBet);
+						//remove players that decide to quit
 						if (!players.get(i).isPlaying()) {
 							removePlayer(players.get(i));
 						}
 					}
+					
 					Wheel.spin();
+					//Pay players that decided to play this round if they won.
 					for (int i = 0; i < players.size(); i++) {
 						if (players.get(i).inThisRound()) {
 							players.get(i).payment();

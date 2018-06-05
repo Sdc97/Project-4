@@ -38,7 +38,7 @@ class Player {
 		return money;
 	}
 
-	public void makeBet(Scanner scan) {
+	public void makeBet(Scanner scan, int minBet, int maxBet) {
 		playedRound = true;
 		System.out.println(name + " has " + money + " chips");
 		System.out.println("1.Enter bet");
@@ -54,7 +54,7 @@ class Player {
 				System.out.print("How much will " + name + " bet: ");
 				bet = scan.nextInt();
 				System.out.println(bet); // Only for use with text file input
-				while (bet < Wheel.MIN_BET || bet > money) {
+				while (bet < minBet || bet > money || bet > maxBet) {
 					System.out.println("Bet is invalid. Please enter a valid bet amount!");
 					System.out.print("How much will " + name + " bet: ");
 					bet = scan.nextInt();
@@ -84,22 +84,28 @@ class Player {
 				if (betType == 4) {
 					number = 37;
 				}
+				if(betType == 5) {
+					number = 38;
+				}
 				break;
 			case 2:
 				System.out.println("Enter the amount you want to reload by: ");
 				RELOAD_AMOUNT = scan.nextInt();
 				money += RELOAD_AMOUNT;
 				System.out.println("Money available: " + money);
+				makeBet(scan,minBet,maxBet);
 				break;
 			case 3:
 				playedRound = false;
+				
 				break;
 			case 4:
 				KeepPlaying(scan);
 				break;
 			}
 		} else {
-			System.out.println("Please enter a valid entry");
+			System.out.println("\nPlease enter a valid entry");
+			makeBet(scan,minBet,maxBet);
 		}
 	}
 
