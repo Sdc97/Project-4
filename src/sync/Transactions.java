@@ -12,6 +12,9 @@
 package sync;
 
 
-public class Transactions {
-	public String transaction[];
+public class Transactions 
+{
+	private String transaction[] = new String[5];
+	
+	
 }
