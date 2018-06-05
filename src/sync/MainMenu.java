@@ -60,38 +60,37 @@ public class MainMenu
 			}
 			else if(choice.equals("2"))
 			{
-				if(inFile.hasNextLine())
-				{
-					playerType = Integer.parseInt(inFile.next());
-					chips = Integer.parseInt(inFile.next());
-					
-					if(playerType==0)
-					{
-						Player p = new Player(chips);
-						Game.addToQueue(p);
-						System.out.println("A player was added to the line to play.");
+				int loops;
+				System.out.print("How many players would you like to add?  --> ");
+				loops = scan.nextInt();
+				for (int i = 0; i < loops; i++) {
+					if (inFile.hasNextLine()) {
+						playerType = Integer.parseInt(inFile.next());
+						chips = Integer.parseInt(inFile.next());
+
+						if (playerType == 0) {
+							Player p = new Player(chips);
+							Game.addToQueue(p);
+							System.out.println("A player was added to the line to play.");
+						} else if (playerType == 1) {
+							id = inFile.next();
+							name1 = inFile.next();
+							name1 += " " + inFile.next();
+							Player p = new VIP(name1, id, chips);
+							Game.addToQueue(p);
+							System.out.println(name1 + " was added to the line to play.");
+						} else if (playerType == 2) {
+							id = inFile.next();
+							name1 = inFile.next();
+							name1 += " " + inFile.next();
+							Player p = new Super(name1, id, chips);
+							Game.addToQueue(p);
+							System.out.println(name1 + " was added to the line to play.");
+						}
+
+					} else {
+						System.out.println("The line is empty! There are no more players waiting to play.");
 					}
-					else if(playerType == 1)
-					{
-						id = inFile.next();
-						name1 = inFile.next();
-						name1+= " " +inFile.next();
-						Player p = new VIP(name1,id,chips);
-						Game.addToQueue(p);
-						System.out.println(name1 + " was added to the line to play.");
-					}
-					else if(playerType == 2)
-					{
-						id = inFile.next();
-						name1 = inFile.next();
-						name1+= " " + inFile.next();
-						Player p = new Super(name1,id,chips);
-						Game.addToQueue(p);
-						System.out.println(name1 + " was added to the line to play.");
-					}
-					
-				} else {
-					System.out.println("The line is empty! There are no more players waiting to play.");
 				}
 			}
 			else
