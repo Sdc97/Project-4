@@ -40,15 +40,16 @@ public class MainMenu
 			System.out.print(" " + allGames.get(i).getVersion());
 		}
 
-		System.out.println("\nMain Menu\n1. Select a game\n"
+		System.out.println("\n\nMain Menu\n1. Select a game\n"
 				+ "2. Add a new player to the list\n3. Quit");
+		System.out.print("\nOption --> ");
 		choice = scan.next();
-		while(choice != "3")
+		while(!choice.equals("3"))
 		{
 			if(choice.equals("1"))
 			{
 				String versionChoice;
-				System.out.println("Select a game --> ");
+				System.out.print("Select a game --> ");
 				versionChoice = scan.next();
 				for(int i = 0; i < allGames.size(); i++) {
 					if(allGames.get(i).getVersion().equals(versionChoice)) {
@@ -68,6 +69,7 @@ public class MainMenu
 					{
 						Player p = new Player(chips);
 						Game.addToQueue(p);
+						System.out.println("A player was added to the line to play.");
 					}
 					else if(playerType == 1)
 					{
@@ -89,7 +91,7 @@ public class MainMenu
 					}
 					
 				} else {
-					System.out.println("The line is empty!");
+					System.out.println("The line is empty! There are no more players waiting to play.");
 				}
 			}
 			else
@@ -97,6 +99,7 @@ public class MainMenu
 			
 			System.out.println("Main Menu\n1. Select a game\n"
 					+ "2. Add a new player to the list\n3. Quit");
+			System.out.print("\nOption --> ");
 			choice = scan.next();
 			
 		}
