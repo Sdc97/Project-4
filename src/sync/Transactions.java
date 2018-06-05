@@ -14,9 +14,40 @@ package sync;
 
 public class Transactions 
 {
-	private int transactionNumber;
-	private int playerName;
-	private String transaction[] = new String[5];
+	private int trans, betAmount, pay,name;
+	private String betType;
+
+	public Transactions(int trans, int name, int betAmount, String betType, int pay) 
+	{
+		this.trans = trans;
+		this.name = name;
+		this.betAmount = betAmount;
+		this.betType = betType;
+		this.pay = pay;
+	}
 	
+	public int getTrans()
+	{
+		return trans;
+	}
 	
+	public int getName()
+	{
+		return name;
+	}
+	
+	public int getBetAmount()
+	{
+		return betAmount;
+	}
+	
+	public String getBetType()
+	{
+		return betType;
+	}
+	
+	public int pay()
+	{
+		return pay;
+	}
 }
