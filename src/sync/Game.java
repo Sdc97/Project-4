@@ -88,12 +88,16 @@ public class Game {
 					//Pay players that decided to play this round if they won.
 					for (int i = 0; i < players.size(); i++) {
 						if (players.get(i).inThisRound()) {
+							houseMoney += players.get(i).getBet();
 							players.get(i).payment();
-							houseMoney -= players.get(i).get
+							houseMoney -= players.get(i).wonThisRound();
 						}
 					}
 					break;
 				case 3:
+					System.out.println("Game: " + name);
+					System.out.println("Initital game balance: " + startingHouseMoney);
+					System.out.println("Current game balance: " + houseMoney);
 					System.out.println("Current players in " + name);
 					for (int i = 0; i < players.size(); i++) {
 						System.out.print("Player " + (i+1) + " ");
@@ -113,7 +117,7 @@ public class Game {
 
 	public void addPlayer() {
 		players.add(playerQ.remove());
-		if (players.get(players.size()-1).getName().equals("Player")) {
+		if (players.get(players.size()-1).getName().equals("Player")) { // Recently added player
 			System.out.println("A player was added to the game.");
 		} else {
 			System.out.println(players.get(players.size()-1).getName() + " was added to the game.");

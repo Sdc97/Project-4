@@ -118,6 +118,10 @@ class Player {
 	}
 	
 	public int wonThisRound() {
+		return Wheel.payoff(bet, betType, number);
+	}
+	
+	public int getBet() {
 		return bet;
 	}
 
