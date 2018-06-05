@@ -51,8 +51,8 @@ class Wheel {
 		System.out.println("    1. Bet on black (even numbers)");
 		System.out.println("    2. Bet on red (odd numbers)");
 		System.out.println("    3. Bet on a number between " + MIN_NUM + " and " + MAX_NUM);
-		System.out.println("	4. Bet on 0");
-		System.out.println("	5. Bet on 00");
+		System.out.println("    4. Bet on 0");
+		System.out.println("    5. Bet on 00");
 		System.out.println();
 	}
 

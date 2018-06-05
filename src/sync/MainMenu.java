@@ -96,7 +96,7 @@ public class MainMenu
 			else
 				System.out.println("Please enter 1, 2, or 3.");
 			
-			System.out.println("Main Menu\n1. Select a game\n"
+			System.out.println("\nMain Menu\n1. Select a game\n"
 					+ "2. Add a new player to the list\n3. Quit");
 			System.out.print("\nOption --> ");
 			choice = scan.next();

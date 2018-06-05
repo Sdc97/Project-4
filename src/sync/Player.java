@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 class Player {
 	protected int RELOAD_AMOUNT = 0;
+	protected int total_reload = 0;
 	protected int money;
 	protected int bet;
 	protected int betType;
@@ -40,7 +41,6 @@ class Player {
 
 	public void makeBet(Scanner scan, int minBet, int maxBet) {
 		playedRound = true;
-		System.out.println(name + " has " + money + " chips");
 		System.out.println("1.Enter bet");
 		System.out.println("2.Reload");
 		System.out.println("3.Skip this round");
@@ -50,28 +50,26 @@ class Player {
 		if (choice >= 1 && choice <= 4) {
 			switch (choice) {
 			case 1:
-				System.out.println(name + " has " + money + " chips");
-				System.out.print("How much will " + name + " bet: ");
+				System.out.println("Balance: " + money + " chips");
+				System.out.print("Amount of bet: ");
 				bet = scan.nextInt();
-				System.out.println(bet); // Only for use with text file input
 				while (bet < minBet || bet > money || bet > maxBet) {
 					System.out.println("Bet is invalid. Please enter a valid bet amount!");
-					System.out.print("How much will " + name + " bet: ");
+					System.out.print("Amount of bet: ");
 					bet = scan.nextInt();
 				}
 				money = money - bet;
 
 				Wheel.betOptions();
-				System.out.print("What is " + name + "s choice?: ");
+				System.out.print("Option --> ");
 				betType = scan.nextInt();
-				System.out.println(betType);
 				while (betType < 1 || betType > 5) {
 					System.out.print("Please enter a correct bet type: ");
 					betType = scan.nextInt();
 				}
 
 				if (betType == 3) {
-					System.out.print("What number would " + name + " like to bet on? Between " + Wheel.MIN_NUM + " and "
+					System.out.print("Which number to bet on? Between " + Wheel.MIN_NUM + " and "
 							+ Wheel.MAX_NUM + ": ");
 					number = scan.nextInt();
 					System.out.println(number);
@@ -92,6 +90,7 @@ class Player {
 				System.out.println("Enter the amount you want to reload by: ");
 				RELOAD_AMOUNT = scan.nextInt();
 				money += RELOAD_AMOUNT;
+				total_reload += RELOAD_AMOUNT;
 				System.out.println("Money available: " + money);
 				makeBet(scan,minBet,maxBet);
 				break;
@@ -117,6 +116,10 @@ class Player {
 			System.out.println(name + " lost...");
 		}
 	}
+	
+	public int wonThisRound() {
+		return bet;
+	}
 
 	public double getbetTotal() {
 		betTotal += bet;
@@ -128,19 +131,19 @@ class Player {
 	}
 
 	public int getWinning() {
-		winning = money - (initialmoney + RELOAD_AMOUNT);
+		winning = money - (initialmoney + total_reload);
 		return winning;
 	}
 
 	public int getHouseWinning() {
-		housewinning = (initialmoney + RELOAD_AMOUNT) - money;
+		housewinning = (initialmoney + total_reload) - money;
 		return housewinning;
 	}
 
 	public String toString() {
-		String result = "Initital game balance: " + initialmoney;
-		result += "Ending game balance: " + money;
-		result += "Winning/Losing amount: " + housewinning;// House winning/losing
+		String result = "|| Initital game balance: " + initialmoney;
+		result += "|| Ending game balance: " + money;
+		result += "|| Winning/Losing amount: " + getWinning();// House winning/losing
 		return result;
 	}
 
@@ -154,5 +157,9 @@ class Player {
 		} else {
 			return false;
 		}
+	}
+	
+	public String getName() {
+		return name;
 	}
 }

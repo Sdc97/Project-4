@@ -2,7 +2,7 @@ package sync;
 
 import java.util.Scanner;
 
-public class Super extends Player
+public class Super extends VIP
 {
 	private String name,id;
 	private double bonus;
@@ -10,7 +10,7 @@ public class Super extends Player
 	
 	public Super(String playerName,String playerid, int initialMoney)
 	{
-		super(initialMoney);
+		super(playerName, playerid, initialMoney);
 		name = playerName;
 		id= playerid;
 	}
@@ -53,4 +53,7 @@ public class Super extends Player
 		}
 	}
 	
+	public String getName() {
+		return name;
+	}
 }

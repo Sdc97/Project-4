@@ -21,6 +21,7 @@ public class VIP extends Player
 	{
 		String result = "The Vip:" + name +" || ID: "+ id;
 		result += " Rewards: " + bonus;
+		result += super.toString();
 		return result;
 	}
 	
@@ -33,5 +34,9 @@ public class VIP extends Player
 		} else {
 			System.out.println(name + " lost...");
 		}
+	}
+	
+	public String getName() {
+		return name;
 	}
 }
