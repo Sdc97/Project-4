@@ -13,8 +13,7 @@ package sync;
 
 
 public class Transactions 
-{
-	
+{	
 	private int trans, betAmount, pay,name;
 	private String betType;
 
