@@ -106,12 +106,14 @@ class Wheel {
 			} else {
 				payout = 0;
 			}
+			break;
 		case 5:
 			if (numberBet == ballPosition) {
 				payout = betAmount * COLOR_PAYOFF;
 			} else {
 				payout = 0;
 			}
+			break;
 		default:
 			System.out.println("404: Balls not found");
 			break;

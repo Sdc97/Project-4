@@ -14,6 +14,8 @@ package sync;
 
 public class Transactions 
 {
+	private int transactionNumber;
+	private int playerName;
 	private String transaction[] = new String[5];
 	
 	

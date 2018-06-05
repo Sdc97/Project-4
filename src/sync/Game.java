@@ -22,6 +22,7 @@ public class Game {
 	private int minBet;
 	private int maxBet;
 	private int houseMoney;
+	private int localHouseMoney;
 
 	ArrayList<Player> players = new ArrayList<Player>();
 	private static Queue<Player> playerQ = new LinkedList<Player>();
@@ -79,6 +80,10 @@ public class Game {
 							players.get(i).payment();
 						}
 					}
+					
+					for(int i = 0; i < players.size(); i++) {
+						houseMoney += players.get(i).getHouseWinning();
+					}
 					break;
 				case 3:
 					System.out.println("Current players in " + name);
@@ -111,4 +116,5 @@ public class Game {
 	public String getVersion() {
 		return name;
 	}
+	
 }

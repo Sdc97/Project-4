@@ -100,7 +100,7 @@ class Player {
 				
 				break;
 			case 4:
-				KeepPlaying(scan);
+				playing = 1;
 				break;
 			}
 		} else {
@@ -135,16 +135,6 @@ class Player {
 	public int getHouseWinning() {
 		housewinning = (initialmoney + RELOAD_AMOUNT) - money;
 		return housewinning;
-	}
-
-	public boolean KeepPlaying(Scanner scan) {
-		String answer;
-		System.out.print(" You sure you want to quit [y/n]? ");
-		answer = scan.next();
-		if (answer.equals("y") || answer.equals("Y")) {
-
-		}
-		return (answer.equals("y") || answer.equals("Y"));
 	}
 
 	public String toString() {
