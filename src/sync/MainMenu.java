@@ -15,7 +15,7 @@ public class MainMenu
 		ArrayList<Game> allGames = new ArrayList<Game>();
 		Scanner scan = new Scanner(System.in);
 		Scanner inFile = new Scanner(new File("players-1.txt"));
-		Scanner games = new Scanner(new File("gamesMulModels-1.txt"));
+		Scanner games = new Scanner(new File("games-1.txt"));
 		System.out.println("Initialize Games. Please wait...");
 		String name;
 		int minBet, maxBet, houseMoney, totalGames;

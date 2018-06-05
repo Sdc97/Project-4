@@ -11,6 +11,7 @@
 */
 package sync;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Player {
@@ -18,11 +19,17 @@ class Player {
 	protected int total_reload = 0;
 	protected int money;
 	protected int bet;
+	protected ArrayList<Integer> bets = new ArrayList<Integer>();
+	protected int betsThisRound;
+	final protected int maxBetsPerRound = 3;
 	protected int betType;
+	protected ArrayList<Integer> betTypesArr = new ArrayList<Integer>();
 	protected int number;
+	protected ArrayList<Integer> numberBetsArr = new ArrayList<Integer>(); 
 	private int winning;
 	private int initialmoney;
 	protected int choice;
+	protected String userInput;
 	private int count = 0;
 	private int playing = 0;
 	private double betTotal = 0;
@@ -50,35 +57,53 @@ class Player {
 		if (choice >= 1 && choice <= 4) {
 			switch (choice) {
 			case 1:
-				System.out.println("Balance: " + money + " chips");
-				System.out.print("Amount of bet: ");
-				bet = scan.nextInt();
-				while (bet < minBet || bet > money || bet > maxBet) {
-					System.out.println("Bet is invalid. Please enter a valid bet amount!");
+				betsThisRound = 0;
+				do {
+					number = 0;
+					count++;
+					System.out.println("Balance: " + money + " chips");
 					System.out.print("Amount of bet: ");
 					bet = scan.nextInt();
-				}
-				money = money - bet;
-
-				Wheel.betOptions();
-				System.out.print("Option --> ");
-				betType = scan.nextInt();
-				while (betType < 1 || betType > 3) {
-					System.out.print("Please enter a correct bet type: ");
-					betType = scan.nextInt();
-				}
-
-				if (betType == 3) {
-					System.out.print("Which number to bet on? Between " + Wheel.MIN_NUM + " and "
-							+ Wheel.MAX_NUM + ": ");
-					number = scan.nextInt();
-					System.out.println(number);
-					while (number < Wheel.MIN_NUM || number > Wheel.MAX_NUM) {
-						System.out.print("That is not a valid number to bet on. \nRemember, the bet "
-								+ "must be between " + Wheel.MIN_NUM + " and " + Wheel.MAX_NUM + ": ");
-						number = scan.nextInt();
+					while (bet < minBet || bet > money || bet > maxBet) {
+						System.out.println("Bet is invalid. Please enter a valid bet amount!");
+						System.out.print("Amount of bet: ");
+						bet = scan.nextInt();
 					}
-				}
+					bets.add(bet);
+					money = money - bet;
+					betTotal += bet;
+
+					Wheel.betOptions();
+					System.out.print("Option --> ");
+					betType = scan.nextInt();
+					while (betType < 1 || betType > 3) {
+						System.out.print("Please enter a correct bet type: ");
+						betType = scan.nextInt();
+					}
+					betTypesArr.add(betType);
+
+					if (betType == 3) {
+						System.out.print(
+								"Which number to bet on? Between " + Wheel.MIN_NUM + " and " + Wheel.MAX_NUM + ": ");
+						number = scan.nextInt();
+						System.out.println(number);
+						while (number < Wheel.MIN_NUM || number > Wheel.MAX_NUM) {
+							System.out.print("That is not a valid number to bet on. \nRemember, the bet "
+									+ "must be between " + Wheel.MIN_NUM + " and " + Wheel.MAX_NUM + ": ");
+							number = scan.nextInt();
+						}
+					}
+					numberBetsArr.add(number);
+					System.out.println("Make another bet? ");
+					userInput = scan.next();
+					if((userInput.equals("y") || userInput.equals("Y")) && betsThisRound < maxBetsPerRound) {
+						betsThisRound++;
+					}
+					if((userInput.equals("y") || userInput.equals("Y")) && betsThisRound >= maxBetsPerRound) {
+						System.out.println("The maximum bets per round is " + maxBetsPerRound);
+					}
+				} while ((userInput.equals("y") || userInput.equals("Y")) && betsThisRound < maxBetsPerRound);
+				
 				break;
 			case 2:
 				System.out.println("Enter the amount you want to reload by: ");
@@ -103,24 +128,25 @@ class Player {
 	}
 
 	public void payment() {
-		if (Wheel.payoff(bet, betType, number) > bet) {
-			money = money + Wheel.payoff(bet, betType, number);
-			System.out.println(name + " won!");
-		} else {
-			System.out.println(name + " lost...");
+		for (int i = 0; i < bets.size(); i++) {
+			if (Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i)) > bet) {
+				money = money + Wheel.payoff(bets.get(i), betType, number);
+				System.out.println(name + " won bet number " + (i+1));
+			} else {
+				System.out.println(name + " lost bet number " + (i+1));
+			}
 		}
 	}
 	
-	public int wonThisRound() {
-		return Wheel.payoff(bet, betType, number);
+	public int wonThisRound(int thisBet) {
+		return Wheel.payoff(thisBet, betType, number);
 	}
 	
-	public int getBet() {
-		return bet;
+	public ArrayList<Integer> getBets() {
+		return bets;
 	}
 
 	public double getbetTotal() {
-		betTotal += bet;
 		return betTotal;
 	}
 

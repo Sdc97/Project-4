@@ -14,7 +14,7 @@ public class VIP extends Player
 	}
 	public double bonus()
 	{
-		bonus = super.getbetTotal()*0.5;
+		bonus = Math.ceil(super.getbetTotal()*0.5);
 		return bonus;
 	}
 	public String toString()
@@ -25,14 +25,14 @@ public class VIP extends Player
 		return result;
 	}
 	
-	public void payment()
-	{
-		if (Wheel.payoff(bet, betType, number) > bet)
-		{
-			money = money + Wheel.payoff(bet, betType, number);
-			System.out.println(name + " won!");
-		} else {
-			System.out.println(name + " lost...");
+	public void payment() {
+		for (int i = 0; i < bets.size(); i++) {
+			if (Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i)) > bet) {
+				money = money + Wheel.payoff(bets.get(i), betType, number);
+				System.out.println(name + " won bet number " + (i+1));
+			} else {
+				System.out.println(name + " lost bet number " + (i+1));
+			}
 		}
 	}
 	

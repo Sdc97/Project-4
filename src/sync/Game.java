@@ -87,10 +87,13 @@ public class Game {
 					Wheel.spin();
 					//Pay players that decided to play this round if they won.
 					for (int i = 0; i < players.size(); i++) {
+						ArrayList<Integer> playerBets = players.get(i).getBets();
 						if (players.get(i).inThisRound()) {
-							houseMoney += players.get(i).getBet();
-							players.get(i).payment();
-							houseMoney -= players.get(i).wonThisRound();
+							for (int j = 0; i < playerBets.size(); i++) {
+								houseMoney += playerBets.get(j);
+								players.get(i).payment();
+								houseMoney -= players.get(i).wonThisRound(playerBets.get(j));
+							}
 						}
 					}
 					break;
