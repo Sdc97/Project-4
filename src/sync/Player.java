@@ -63,7 +63,7 @@ class Player {
 				Wheel.betOptions();
 				System.out.print("Option --> ");
 				betType = scan.nextInt();
-				while (betType < 1 || betType > 5) {
+				while (betType < 1 || betType > 3) {
 					System.out.print("Please enter a correct bet type: ");
 					betType = scan.nextInt();
 				}
@@ -78,12 +78,6 @@ class Player {
 								+ "must be between " + Wheel.MIN_NUM + " and " + Wheel.MAX_NUM + ": ");
 						number = scan.nextInt();
 					}
-				}
-				if (betType == 4) {
-					number = 37;
-				}
-				if(betType == 5) {
-					number = 38;
 				}
 				break;
 			case 2:
