@@ -21,4 +21,15 @@ public class VIP extends Player
 		result += "Rewards: " + bonus;
 		return result;
 	}
+	
+	public void payment()
+	{
+		if (Wheel.payoff(bet, betType, number) > bet)
+		{
+			money = money + Wheel.payoff(bet, betType, number);
+			System.out.println(name + " won!");
+		} else {
+			System.out.println(name + " lost...");
+		}
+	}
 }

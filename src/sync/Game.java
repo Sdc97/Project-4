@@ -63,6 +63,12 @@ public class Game {
 						removePlayer(players.get(i));
 					}
 				}
+				Wheel.spin();
+				for(int i = 0; i < players.size(); i++) {
+					if(players.get(i).inThisRound()) {
+						players.get(i).payment();
+					}
+				}
 				break;
 			case 3:
 				System.out.println("Current players in " + name);
