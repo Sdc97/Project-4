@@ -52,6 +52,7 @@ public class Game {
 			switch(choice) {
 			case 1: 
 				addPlayer();
+				break;
 			}
 		}
 		catch(NoSuchElementException exception) {
@@ -61,9 +62,15 @@ public class Game {
 	
 	public void addPlayer() {
 		players.add(playerQ.remove());
+		currentPlayers++;
 	}
 	
 	public void removePlayer(Player p) {
 		players.remove(p);
+		currentPlayers--;
+	}
+	
+	public String getVersion() {
+		return name;
 	}
 }

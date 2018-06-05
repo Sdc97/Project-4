@@ -17,14 +17,14 @@ class Wheel
     public final static int GREEN     =  2;			// 00 OR 0
     public final static int NUMBER    =  3;			// number bet
     public final static int MIN_NUM   =  1;			// smallest number to bet
-    public final static int MAX_NUM   = 14;			// largest number to bet
+    public final static int MAX_NUM   = 36;			// largest number to bet
     public final static int MAX_BET   = 10;			// largest amount to bet
     public final static int MIN_BET   = 1;			// smallest number to bet
     public final static int RELOAD_VALUE = 50;
 
     // private name constants -- internal use only
-    private final static int MAX_POSITIONS = 16;	// number of positions on wheel
-    private final static int NUMBER_PAYOFF = 14;	// payoff for number bet
+    private final static int MAX_POSITIONS = 38;	// number of positions on wheel
+    private final static int NUMBER_PAYOFF = 35;	// payoff for number bet
     private final static int COLOR_PAYOFF  = 2;		// payoff for color bet
 
     // private variables -- internal use only

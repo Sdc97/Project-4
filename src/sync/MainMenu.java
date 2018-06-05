@@ -1,37 +1,68 @@
 package sync;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern;
 public class MainMenu 
 {
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws IOException
 	{
 		String choice,id,name1,name2;
-		int playerType,chips; 
+		int playerType,chips;
+		ArrayList<Game> allGames = new ArrayList<Game>();
 		Scanner scan = new Scanner(System.in);
-		Scanner inFile = new Scanner("players.txt");
+		Scanner inFile = new Scanner(new File("players-1.txt"));
+		Scanner games = new Scanner(new File("gamesMulModels-1.txt"));
 		System.out.println("Initialize Games. Please wait...");
+		String name;
+		int minBet, maxBet, houseMoney, totalGames;
+		while (games.hasNextLine()) {
+			name = games.next();
+			totalGames = games.nextInt();
+			
+			for (int i = 0; i < totalGames; i++) {
+				String version = name + (i+1);
+				games.nextLine();
+				minBet = games.nextInt();
+				maxBet = games.nextInt();
+				houseMoney = games.nextInt();
+				allGames.add(new Game(version, minBet, maxBet, houseMoney));
+			}
+			if(games.hasNextLine()) {
+				games.nextLine();
+			}
+		}
 		System.out.println("All games are ready.");
-		//System.out.println("Available games: ");
+		for(int i = 0; i < allGames.size(); i++) {
+			System.out.print(" " + allGames.get(i).getVersion());
+		}
 
-		System.out.println("Main Menu\n1. Select a game\n"
+		System.out.println("\nMain Menu\n1. Select a game\n"
 				+ "2. Add a new player to the list\n3. Quit");
 		choice = scan.next();
 		while(choice != "3")
 		{
-			if(choice=="1")
+			if(choice.equals("1"))
 			{
-				//stephens class
+				String versionChoice;
+				System.out.println("Select a game --> ");
+				versionChoice = scan.next();
+				for(int i = 0; i < allGames.size(); i++) {
+					if(allGames.get(i).getVersion().equals(versionChoice)) {
+						allGames.get(i).gameMenu();
+					}
+				}
+				
 			}
-			else if(choice =="2")
+			else if(choice.equals("2"))
 			{
-				while(inFile.hasNextLine())
+				if(inFile.hasNextLine())
 				{
 					playerType = Integer.parseInt(inFile.next());
 					chips = Integer.parseInt(inFile.next());
-					id = inFile.next();
-					name1 = inFile.next();
-					name1+=inFile.next();
 					
 					if(playerType==0)
 					{
@@ -40,14 +71,25 @@ public class MainMenu
 					}
 					else if(playerType == 1)
 					{
+						id = inFile.next();
+						name1 = inFile.next();
+						name1+= " " +inFile.next();
 						Player p = new VIP(name1,id,chips);
 						Game.addToQueue(p);
+						System.out.println(name1 + " was added to the line to play.");
 					}
 					else if(playerType == 2)
 					{
+						id = inFile.next();
+						name1 = inFile.next();
+						name1+= " " + inFile.next();
 						Player p = new Super(name1,id,chips);
 						Game.addToQueue(p);
+						System.out.println(name1 + " was added to the line to play.");
 					}
+					
+				} else {
+					System.out.println("The line is empty!");
 				}
 			}
 			else
