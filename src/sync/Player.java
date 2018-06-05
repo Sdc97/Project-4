@@ -58,6 +58,9 @@ class Player {
 			switch (choice) {
 			case 1:
 				betsThisRound = 0;
+				bets.clear();
+				betTypesArr.clear();
+				numberBetsArr.clear();
 				do {
 					number = 0;
 					count++;
@@ -130,7 +133,7 @@ class Player {
 	public void payment() {
 		for (int i = 0; i < bets.size(); i++) {
 			if (Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i)) > bet) {
-				money = money + Wheel.payoff(bets.get(i), betType, number);
+				money = money + Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i));
 				System.out.println(name + " won bet number " + (i+1));
 			} else {
 				System.out.println(name + " lost bet number " + (i+1));
@@ -138,13 +141,26 @@ class Player {
 		}
 	}
 	
-	public int wonThisRound(int thisBet) {
-		return Wheel.payoff(thisBet, betType, number);
+	public int betTotalThisRound() {
+		int betTotals = 0;
+		for(int i = 0; i < bets.size(); i++) {
+			betTotals += bets.get(i);
+		}
+		return betTotals;
+	}
+	
+	public int wonThisRound() {
+		int total = 0;
+		for(int i = 0; i < bets.size(); i++) { // TODO fix house winning calculations
+			total += Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i));
+		}
+		return total;
 	}
 	
 	public ArrayList<Integer> getBets() {
 		return bets;
 	}
+	
 
 	public double getbetTotal() {
 		return betTotal;

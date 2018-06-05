@@ -45,7 +45,7 @@ public class Super extends VIP
 	public void payment() {
 		for (int i = 0; i < bets.size(); i++) {
 			if (Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i)) > bet) {
-				money = money + Wheel.payoff(bets.get(i), betType, number);
+				money = money + Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i));
 				System.out.println(name + " won bet number " + (i+1));
 			} else {
 				System.out.println(name + " lost bet number " + (i+1));
