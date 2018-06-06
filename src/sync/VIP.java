@@ -1,3 +1,13 @@
+/*  Java Program: Advance Roulette
+	Modified by: Steven Calvert, Boon C., Alex Neoh 
+	Class: VIP.java
+	Date: 6/5/2018
+	Description: Polymorphic relationship with player. 
+	Obtain rewards for regular VIP. Also contain name and ID.
+
+	I certify that the code below is modified by me.
+	Exception(s): N/A
+ */
 package sync;
 
 import java.util.Scanner;
@@ -19,12 +29,12 @@ public class VIP extends Player
 	}
 	public String toString()
 	{
-		String result = "The Vip:" + name +" || ID: "+ id;
-		result += " Rewards: " + bonus;
+		String result = " || The Vip:" + name +" || ID: "+ id;
+		result += " || Rewards: " + bonus;
 		result += super.toString();
 		return result;
 	}
-	
+
 	public void payment() {
 		for (int i = 0; i < bets.size(); i++) {
 			if (Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i)) > bet) {
@@ -35,7 +45,7 @@ public class VIP extends Player
 			}
 		}
 	}
-	
+
 	public String getName() {
 		return name;
 	}

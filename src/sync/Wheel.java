@@ -1,7 +1,7 @@
 package sync;
 // Class Wheel for CSCI 145 Project 2 Spring 18
 
-// Modified by: Steven Calvert
+// Modified by: Steven Calvert, Boon C, Alex Neoh 
 
 //************************************************************************
 //   Class Wheel represents a roulette wheel and its operations.  Its

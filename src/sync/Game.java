@@ -1,14 +1,13 @@
-/*  Java Program: 
-	Modified by:	Steven Calvert
-	Class:	
-	Date:	
-	Description: 
+/*  Java Program: Advance Roulette
+	Modified by: Steven Calvert, Boon C., Alex Neoh 
+	Class: Game.java
+	Date: 6/5/2018
+	Description: Contain the game files which havearray list and queue for
+	players. Calculate the housewinning and obtain data from player
 
 	I certify that the code below is modified by me.
-
 	Exception(s): N/A
-
-*/
+ */
 package sync;
 
 import java.util.ArrayList;
@@ -23,6 +22,8 @@ public class Game {
 	private int maxBet;
 	private int houseMoney;
 	private int startingHouseMoney;
+	private int roundCount;
+	public int transCount = 1;
 
 	ArrayList<Player> players = new ArrayList<Player>();
 	private static Queue<Player> playerQ = new LinkedList<Player>();
@@ -68,6 +69,7 @@ public class Game {
 					break;
 				case 2:
 					//Run through each player menu individually
+					roundCount++;
 					for (int i = 0; i < players.size(); i++) {
 						if (players.get(i).getName().equals("Player")) { // Purely aesthetics to allow player names if VIP
 							System.out.println("\nPlayer " + (i + 1));
@@ -83,16 +85,16 @@ public class Game {
 							removePlayer(players.get(i));
 						}
 					}
-					
+
 					Wheel.spin();
 					//Pay players that decided to play this round if they won.
 					for (int i = 0; i < players.size(); i++) {
 						if (players.get(i).inThisRound()) {
 							houseMoney += players.get(i).betTotalThisRound();
-							System.out.println(houseMoney);
+							//System.out.println(houseMoney);
 							players.get(i).payment();
 							houseMoney -= players.get(i).wonThisRound();
-							System.out.println(houseMoney);
+							//System.out.println(houseMoney);
 						}
 					}
 					break;
@@ -135,5 +137,23 @@ public class Game {
 	public String getVersion() {
 		return name;
 	}
-	
+	public void getReport() //no idea how we were supposed to use the transactions
+	{
+		System.out.println("Game: " + name);
+		System.out.println("Initital game balance: " + startingHouseMoney);
+		System.out.println("Ending game balance: " + houseMoney);
+		System.out.println("Winning/Losing amount: " + (houseMoney - startingHouseMoney));
+		for(int i = 0; i<roundCount;i++)
+		{
+			System.out.println("Round " + (i+1) /*Wheel result?*/ );
+			System.out.println("Trans\t" + "Player\t" + "BetAmount\t" + "Bet Type\t" + "Pay");
+			for(int j = 0; j<players.size(); j++)
+			{
+				System.out.println((transCount) + "\t" + players.get(j).getName() 
+						+ "\t" + players.get(j).getbetTotal()  + "\t" + /*Bettype?*/ "\t" 
+						+ players.get(j).getWinning());
+				transCount++; //public keep count of trans though we were supposed to use Transactions right?
+			}
+		}
+	}
 }

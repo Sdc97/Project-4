@@ -1,14 +1,13 @@
-/*  Java Program: 
-	Modified by:	Steven Calvert
-	Class:	
-	Date:	
-	Description: 
+/*  Java Program: Advance Roulette
+	Modified by: Steven Calvert, Boon C., Alex Neoh 
+	Class: Player.java
+	Date: 6/5/2018
+	Description: Allow player to make choices and calculate 
+	payment and the result of each round
 
 	I certify that the code below is modified by me.
-
 	Exception(s): N/A
-
-*/
+ */
 package sync;
 
 import java.util.ArrayList;
@@ -106,7 +105,7 @@ class Player {
 						System.out.println("The maximum bets per round is " + maxBetsPerRound);
 					}
 				} while ((userInput.equals("y") || userInput.equals("Y")) && betsThisRound < maxBetsPerRound);
-				
+
 				break;
 			case 2:
 				System.out.println("Enter the amount you want to reload by: ");
@@ -118,7 +117,7 @@ class Player {
 				break;
 			case 3:
 				playedRound = false;
-				
+
 				break;
 			case 4:
 				playing = 1;
@@ -140,7 +139,7 @@ class Player {
 			}
 		}
 	}
-	
+
 	public int betTotalThisRound() {
 		int betTotals = 0;
 		for(int i = 0; i < bets.size(); i++) {
@@ -148,7 +147,7 @@ class Player {
 		}
 		return betTotals;
 	}
-	
+
 	public int wonThisRound() {
 		int total = 0;
 		for(int i = 0; i < bets.size(); i++) { // TODO fix house winning calculations
@@ -156,11 +155,11 @@ class Player {
 		}
 		return total;
 	}
-	
+
 	public ArrayList<Integer> getBets() {
 		return bets;
 	}
-	
+
 
 	public double getbetTotal() {
 		return betTotal;
@@ -181,9 +180,9 @@ class Player {
 	}
 
 	public String toString() {
-		String result = "|| Initital game balance: " + initialmoney;
-		result += "|| Ending game balance: " + money;
-		result += "|| Winning/Losing amount: " + getWinning();// House winning/losing
+		String result = " || Initital game balance: " + initialmoney;
+		result += " || Ending game balance: " + money;
+		result += " || Winning/Losing amount: " + getWinning();
 		return result;
 	}
 
@@ -198,7 +197,6 @@ class Player {
 			return false;
 		}
 	}
-	
 	public String getName() {
 		return name;
 	}
