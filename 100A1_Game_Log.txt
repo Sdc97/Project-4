@@ -1,21 +1,4 @@
 Game: 100A1
 Initital game balance: 5000
-Ending game balance: 5014
-Winning/Losing amount: 14
-
-Round 1(Black 14)
-Trans      Player     BetAmount  BetType    Pay       
-
-Round 2(Red 15)
-Trans      Player     BetAmount  BetType    Pay       
-  1          1            10       B         0        
-  2          1            5        29        0        
-  3          2            10       R         20       
-  4          2            4        17        0        
-  5          3            10       R         20       
-  6          3            5        26        0        
-
-Round 3(Red 29)
-Trans      Player     BetAmount  BetType    Pay       
-  7          1            5        B         0        
-  8          3            5        B         0        
+Ending game balance: 5000
+Winning/Losing amount: 0

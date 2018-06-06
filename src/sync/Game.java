@@ -13,6 +13,7 @@ package sync;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
@@ -55,6 +56,7 @@ public class Game {
 		System.out.println("Current Players: " + currentPlayers);
 		do {
 			try {
+				try {
 				System.out.print("\nGame Menu\n");
 				System.out.println("1. Add a player to the game");
 				System.out.println("2. Play one round");
@@ -62,16 +64,24 @@ public class Game {
 				System.out.println("4. Return to the main menu");
 				System.out.print("\nOption -->");
 				choice = scan.nextInt();
+				} catch (InputMismatchException exception) {
+					System.out.println("\nInvalid input received.\n");
+					scan = new Scanner(System.in);
+				}
 
 				switch (choice) {
 				case 1:
-					int loops;
-					System.out.println("\nThere are currently " + playerQ.size() + " players in line.");
-					System.out.print("How many players would you like to add?  --> ");
-					loops = scan.nextInt();
-					
-					for (int i = 0; i < loops; i++) {
-						addPlayer();
+					try {
+						int loops;
+						System.out.println("\nThere are currently " + playerQ.size() + " players in line.");
+						System.out.print("How many players would you like to add?  --> ");
+						loops = scan.nextInt();
+						for (int i = 0; i < loops; i++) {
+							addPlayer();
+						}
+					} catch (InputMismatchException exception) {
+						System.out.println("\nInvalid input received. Please use indicated options.\n");
+						scan = new Scanner(System.in);
 					}
 					break;
 				case 2:
@@ -134,9 +144,11 @@ public class Game {
 				default:
 					System.out.println("Please enter a valid selection.");
 				}
-			} catch (NoSuchElementException exception) {
+			} 
+			catch (NoSuchElementException exception) {
 				System.out.println("The queue is empty.");
-			}
+				scan = new Scanner(System.in);
+			}  
 		} while (choice != 4);
 	}
 

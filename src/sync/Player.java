@@ -11,6 +11,7 @@
 package sync;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Player {
@@ -55,6 +56,7 @@ class Player {
 		System.out.println("3.Skip this round");
 		System.out.println("4.Exit Game");
 		System.out.print("\nOption --> ");
+		try {
 		choice = scan.nextInt();
 		if (choice >= 1 && choice <= 4) {
 			switch (choice) {
@@ -109,7 +111,7 @@ class Player {
 						System.out.println("The maximum bets per round is " + maxBetsPerRound);
 					}
 				} while ((userInput.equals("y") || userInput.equals("Y")) && betsThisRound < maxBetsPerRound);
-
+				
 				break;
 			case 2:
 				System.out.println("Enter the amount you want to reload by: ");
@@ -135,6 +137,9 @@ class Player {
 		} else {
 			System.out.println("\nPlease enter a valid entry");
 			makeBet(scan,minBet,maxBet);
+		}
+		} catch (InputMismatchException exception) {
+			System.out.println("\nInvalid input received.\n");
 		}
 	}
 
