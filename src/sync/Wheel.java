@@ -74,6 +74,20 @@ class Wheel {
 		}
 	}
 
+	public static String getResult() {
+		if (ballPosition > 36) {
+			if (ballPosition == 37) {
+				return "Green 0";
+			} else {
+				return "Green 00";
+			}
+		} else if (ballPosition % 2 == 0) {
+			return "Black " + ballPosition;
+		} else {
+			return "Red " + ballPosition;
+		}
+	}
+	
 	public static int payoff(int betAmount, int betType, int numberBet) {
 		int payout = 0;
 		switch (betType) {

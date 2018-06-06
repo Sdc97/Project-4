@@ -22,10 +22,12 @@ public class Game {
 	private int maxBet;
 	private int houseMoney;
 	private int startingHouseMoney;
-	private int roundCount;
+	private int roundCount = 0;
 	public int transCount = 1;
-
-	ArrayList<Player> players = new ArrayList<Player>();
+	public ArrayList<ArrayList<Transactions>> transaction = new ArrayList<ArrayList<Transactions>>();
+	public ArrayList<String> roundResults = new ArrayList<String>();
+	
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private static Queue<Player> playerQ = new LinkedList<Player>();
 	public int currentPlayers = 0;
 	private Scanner scan = new Scanner(System.in);
@@ -87,14 +89,27 @@ public class Game {
 					}
 
 					Wheel.spin();
+					roundResults.add(Wheel.getResult());
 					//Pay players that decided to play this round if they won.
 					for (int i = 0; i < players.size(); i++) {
 						if (players.get(i).inThisRound()) {
 							houseMoney += players.get(i).betTotalThisRound();
-							//System.out.println(houseMoney);
 							players.get(i).payment();
 							houseMoney -= players.get(i).wonThisRound();
-							//System.out.println(houseMoney);
+						}
+					}
+					transaction.add(new ArrayList<Transactions>());
+					for (int i = 0; i < players.size(); i++) {
+						if (players.get(i).inThisRound()) {
+							ArrayList<Integer> bets = players.get(i).getBets();
+							ArrayList<String> betTypes = players.get(i).getBetTypes();
+							ArrayList<Integer> roundWinnings = players.get(i).getRoundWinnings();
+							for (int j = 0; j < bets.size(); j++) {
+								transaction.get(roundCount - 1).add(new Transactions(transCount, (i + 1), bets.get(j),
+										betTypes.get(j), 
+										roundWinnings.get(j)));
+								transCount++;
+							}
 						}
 					}
 					break;
@@ -137,21 +152,26 @@ public class Game {
 	public String getVersion() {
 		return name;
 	}
-	public void getReport() //no idea how we were supposed to use the transactions
+	public void getReport()
 	{
 		System.out.println("Game: " + name);
 		System.out.println("Initital game balance: " + startingHouseMoney);
 		System.out.println("Ending game balance: " + houseMoney);
 		System.out.println("Winning/Losing amount: " + (houseMoney - startingHouseMoney));
-		for(int i = 0; i<roundCount;i++)
+		for(int i = 0; i < roundCount; i++)
 		{
-			System.out.println("Round " + (i+1) /*Wheel result?*/ );
-			System.out.println("Trans\t" + "Player\t" + "BetAmount\t" + "Bet Type\t" + "Pay");
-			for(int j = 0; j<players.size(); j++)
+			System.out.println("\nRound " + (i+1) + "(" + roundResults.get(i) + ")" );
+			System.out.println("Trans\t" + "Player\t\t" + "BetAmount\t" + "Bet Type\t" + "Pay");
+			for(int j = 0; j < transaction.get(i).size(); j++)
 			{
-				System.out.println((transCount) + "\t" + players.get(j).getName() 
-						+ "\t" + players.get(j).getbetTotal()  + "\t" + /*Bettype?*/ "\t" 
-						+ players.get(j).getWinning());
+				int transNumber = transaction.get(i).get(j).getTrans();
+				int playerNumber = transaction.get(i).get(j).getName();
+				int betNumber = transaction.get(i).get(j).getBetAmount();
+				String thisBetType = transaction.get(i).get(j).getBetType();
+				int thisPay = transaction.get(i).get(j).getPay();
+				System.out.println("  " +(transNumber) + "\t  " + playerNumber 
+						+ "\t\t   " + betNumber  + "\t\t   " + thisBetType + "\t\t" 
+						+ thisPay);
 				transCount++; //public keep count of trans though we were supposed to use Transactions right?
 			}
 		}

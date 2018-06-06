@@ -102,6 +102,10 @@ public class MainMenu
 			choice = scan.next();
 			
 		}
+		for(int i = 0; i < allGames.size(); i++) {
+			allGames.get(i).getReport();
+			System.out.println();
+		}
 	}
 
 }

@@ -37,6 +37,7 @@ public class VIP extends Player
 
 	public void payment() {
 		for (int i = 0; i < bets.size(); i++) {
+			winningsThisRound.add(Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i)));
 			if (Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i)) > bet) {
 				money = money + Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i));
 				System.out.println(name + " won bet number " + (i+1));

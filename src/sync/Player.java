@@ -25,6 +25,7 @@ class Player {
 	protected ArrayList<Integer> betTypesArr = new ArrayList<Integer>();
 	protected int number;
 	protected ArrayList<Integer> numberBetsArr = new ArrayList<Integer>(); 
+	protected ArrayList<Integer> winningsThisRound = new ArrayList<Integer>();
 	private int winning;
 	private int initialmoney;
 	protected int choice;
@@ -60,6 +61,7 @@ class Player {
 				bets.clear();
 				betTypesArr.clear();
 				numberBetsArr.clear();
+				winningsThisRound.clear();
 				do {
 					number = 0;
 					count++;
@@ -131,6 +133,7 @@ class Player {
 
 	public void payment() {
 		for (int i = 0; i < bets.size(); i++) {
+			winningsThisRound.add(Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i)));
 			if (Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i)) > bet) {
 				money = money + Wheel.payoff(bets.get(i), betTypesArr.get(i), numberBetsArr.get(i));
 				System.out.println(name + " won bet number " + (i+1));
@@ -159,7 +162,28 @@ class Player {
 	public ArrayList<Integer> getBets() {
 		return bets;
 	}
-
+	
+	public ArrayList<String> getBetTypes() {
+		ArrayList<String> strBetTypes = new ArrayList<String>();
+		for(int i = 0; i < betTypesArr.size(); i++) {
+			if(betTypesArr.get(i) == 1) {
+				strBetTypes.add("B");
+			} else if (betTypesArr.get(i) == 2) {
+				strBetTypes.add("R");
+			} else {
+				strBetTypes.add(numberBetsArr.get(i).toString());
+			}
+		}
+		return strBetTypes;
+	}
+	
+	public ArrayList<Integer> getRoundWinnings() {
+		return winningsThisRound;
+	}
+	
+	public int getNumOfBets() {
+		return betsThisRound;
+	}
 
 	public double getbetTotal() {
 		return betTotal;
