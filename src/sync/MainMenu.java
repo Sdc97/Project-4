@@ -1,6 +1,7 @@
 package sync;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -103,9 +104,13 @@ public class MainMenu
 			
 		}
 		for(int i = 0; i < allGames.size(); i++) {
-			allGames.get(i).getReport();
+			
+			FileWriter fileOut = new FileWriter(new File(allGames.get(i).getVersion() + "_Game_Log.txt"));
+			allGames.get(i).getReport(fileOut);
+			fileOut.close();
 			System.out.println();
 		}
+	
 	}
 
 }

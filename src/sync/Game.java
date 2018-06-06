@@ -10,6 +10,8 @@
  */
 package sync;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -30,6 +32,7 @@ public class Game {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private static Queue<Player> playerQ = new LinkedList<Player>();
 	public int currentPlayers = 0;
+	public int playerNumberCount = 0;
 	private Scanner scan = new Scanner(System.in);
 
 	public Game(String name, int min, int max, int house) {
@@ -49,6 +52,7 @@ public class Game {
 		System.out.println("\nWelcome to the game: " + name);
 		System.out.println("Minimum bet: " + minBet);
 		System.out.println("Maximum bet: " + maxBet);
+		System.out.println("Current Players: " + currentPlayers);
 		do {
 			try {
 				System.out.print("\nGame Menu\n");
@@ -74,10 +78,10 @@ public class Game {
 					roundCount++;
 					for (int i = 0; i < players.size(); i++) {
 						if (players.get(i).getName().equals("Player")) { // Purely aesthetics to allow player names if VIP
-							System.out.println("\nPlayer " + (i + 1));
+							System.out.println("\nPlayer " + players.get(i).getPlayerNumber());
 							System.out.println("Players balance: " + players.get(i).getMoney());
 						} else {
-							System.out.println("\nPlayer " + (i + 1) + " " + players.get(i).getName());
+							System.out.println("\nPlayer " + players.get(i).getPlayerNumber() + " " + players.get(i).getName());
 							System.out.println(players.get(i).getName() + "'s balance: " + players.get(i).getMoney());
 						}
 						players.get(i).makeBet(scan, minBet, maxBet);
@@ -85,6 +89,7 @@ public class Game {
 						if (!players.get(i).isPlaying()) {
 							System.out.println("Goodbye " + players.get(i).getName() + ", have a great day!");
 							removePlayer(players.get(i));
+							i -= 1;
 						}
 					}
 
@@ -105,7 +110,7 @@ public class Game {
 							ArrayList<String> betTypes = players.get(i).getBetTypes();
 							ArrayList<Integer> roundWinnings = players.get(i).getRoundWinnings();
 							for (int j = 0; j < bets.size(); j++) {
-								transaction.get(roundCount - 1).add(new Transactions(transCount, (i + 1), bets.get(j),
+								transaction.get(roundCount - 1).add(new Transactions(transCount, players.get(i).getPlayerNumber(), bets.get(j),
 										betTypes.get(j), 
 										roundWinnings.get(j)));
 								transCount++;
@@ -119,7 +124,7 @@ public class Game {
 					System.out.println("Current game balance: " + houseMoney);
 					System.out.println("Current players in " + name);
 					for (int i = 0; i < players.size(); i++) {
-						System.out.print("Player " + (i+1) + " ");
+						System.out.print("Player " + players.get(i).getPlayerNumber() + " ");
 						System.out.println(players.get(i).toString());
 					}
 					break; // TODO add transaction history and game information.
@@ -135,7 +140,9 @@ public class Game {
 	}
 
 	public void addPlayer() {
+		playerNumberCount++;
 		players.add(playerQ.remove());
+		players.get(players.size()-1).setPlayerNumber(playerNumberCount);
 		if (players.get(players.size()-1).getName().equals("Player")) { // Recently added player
 			System.out.println("A player was added to the game.");
 		} else {
@@ -152,16 +159,23 @@ public class Game {
 	public String getVersion() {
 		return name;
 	}
-	public void getReport()
+	public void getReport(FileWriter fileOut)
 	{
+		PrintWriter printWriter = new PrintWriter(fileOut);
 		System.out.println("Game: " + name);
+		printWriter.println("Game: " + name);
 		System.out.println("Initital game balance: " + startingHouseMoney);
+		printWriter.println("Initital game balance: " + startingHouseMoney);
 		System.out.println("Ending game balance: " + houseMoney);
+		printWriter.println("Ending game balance: " + houseMoney);
 		System.out.println("Winning/Losing amount: " + (houseMoney - startingHouseMoney));
+		printWriter.println("Winning/Losing amount: " + (houseMoney - startingHouseMoney));
 		for(int i = 0; i < roundCount; i++)
 		{
 			System.out.println("\nRound " + (i+1) + "(" + roundResults.get(i) + ")" );
+			printWriter.println("\nRound " + (i+1) + "(" + roundResults.get(i) + ")" );
 			System.out.println("Trans\t" + "Player\t\t" + "BetAmount\t" + "Bet Type\t" + "Pay");
+			printWriter.printf("%-10s %-10s %-10s %-10s %-10s%n", "Trans", "Player", "BetAmount", "BetType", "Pay");
 			for(int j = 0; j < transaction.get(i).size(); j++)
 			{
 				int transNumber = transaction.get(i).get(j).getTrans();
@@ -169,11 +183,12 @@ public class Game {
 				int betNumber = transaction.get(i).get(j).getBetAmount();
 				String thisBetType = transaction.get(i).get(j).getBetType();
 				int thisPay = transaction.get(i).get(j).getPay();
-				System.out.println("  " +(transNumber) + "\t  " + playerNumber 
+				System.out.println("  " + (transNumber) + "\t  " + playerNumber 
 						+ "\t\t   " + betNumber  + "\t\t   " + thisBetType + "\t\t" 
 						+ thisPay);
-				transCount++; //public keep count of trans though we were supposed to use Transactions right?
+				printWriter.printf("  %-10d %-12d %-8d %-9s %-9d%n", transNumber, playerNumber, betNumber, thisBetType, thisPay);
 			}
 		}
+		printWriter.close();
 	}
 }

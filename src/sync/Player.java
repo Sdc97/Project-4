@@ -33,9 +33,11 @@ class Player {
 	private int count = 0;
 	private int playing = 0;
 	private double betTotal = 0;
+	private int skips = 0;
 	private String name = "Player";
 	public int housewinning;
 	protected boolean playedRound;
+	private int playerNumber;
 
 	public Player(int initialMoney) {
 		money = initialMoney;
@@ -57,6 +59,7 @@ class Player {
 		if (choice >= 1 && choice <= 4) {
 			switch (choice) {
 			case 1:
+				skips = 0;
 				betsThisRound = 0;
 				bets.clear();
 				betTypesArr.clear();
@@ -90,7 +93,6 @@ class Player {
 						System.out.print(
 								"Which number to bet on? Between " + Wheel.MIN_NUM + " and " + Wheel.MAX_NUM + ": ");
 						number = scan.nextInt();
-						System.out.println(number);
 						while (number < Wheel.MIN_NUM || number > Wheel.MAX_NUM) {
 							System.out.print("That is not a valid number to bet on. \nRemember, the bet "
 									+ "must be between " + Wheel.MIN_NUM + " and " + Wheel.MAX_NUM + ": ");
@@ -98,7 +100,7 @@ class Player {
 						}
 					}
 					numberBetsArr.add(number);
-					System.out.println("Make another bet? ");
+					System.out.print("Make another bet?(y/n) --> ");
 					userInput = scan.next();
 					if((userInput.equals("y") || userInput.equals("Y")) && betsThisRound < maxBetsPerRound) {
 						betsThisRound++;
@@ -118,8 +120,13 @@ class Player {
 				makeBet(scan,minBet,maxBet);
 				break;
 			case 3:
+				skips++;
 				playedRound = false;
-
+				if(skips > 2) {
+					System.out.println("Skipped too many rounds... Removing player from game.");
+					playing = 1;
+				}
+				
 				break;
 			case 4:
 				playing = 1;
@@ -175,6 +182,14 @@ class Player {
 			}
 		}
 		return strBetTypes;
+	}
+	
+	public void setPlayerNumber(int num) {
+		playerNumber = num;
+	}
+	
+	public int getPlayerNumber() {
+		return playerNumber;
 	}
 	
 	public ArrayList<Integer> getRoundWinnings() {

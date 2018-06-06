@@ -1,0 +1,4 @@
+Game: 100A2
+Initital game balance: 10000
+Ending game balance: 10000
+Winning/Losing amount: 0
