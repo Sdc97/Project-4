@@ -203,6 +203,21 @@ class Player {
 	public double getbetTotal() {
 		return betTotal;
 	}
+	
+	public void addMoney(int m) {
+		money += m;
+	}
+	
+	public int bonus() {
+		return 0;
+	}
+	public int superBonus() {
+		return 0;
+	}
+	
+	public boolean isSuper() {
+		return false;
+	}
 
 	public int getCount() {
 		return count;

@@ -15,16 +15,16 @@ import java.util.Scanner;
 public class VIP extends Player
 {
 	private String name,id;
-	private double bonus;
+	protected int bonus;
 	public VIP(String playerName,String playerid, int initialMoney) 
 	{
 		super(initialMoney);
 		name = playerName;
 		id= playerid;
 	}
-	public double bonus()
+	public int bonus()
 	{
-		bonus = Math.ceil(super.getbetTotal()*0.5);
+		bonus = (int)Math.ceil(super.getbetTotal()*0.05);
 		return bonus;
 	}
 	public String toString()

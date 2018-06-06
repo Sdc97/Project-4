@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Super extends VIP
 {
 	private String name,id;
-	private double bonus;
+	private int superBonus;
 	private int count = super.getCount();
 
 	public Super(String playerName,String playerid, int initialMoney)
@@ -24,31 +24,30 @@ public class Super extends VIP
 		name = playerName;
 		id= playerid;
 	}
-	public double bonus()
+	public int superBonus()
 	{
 		if(count >= 5 && count <= 10)
 		{
-			bonus = 10;
+			superBonus = 10;
 		}
 		else if(count >= 11 && count <= 20)
 		{
-			bonus = 25;
+			superBonus = 25;
 		}
 		else if(count < 20)
 		{
-			bonus = 50;
+			superBonus = 50;
 		}
 		else
 		{
-			bonus = 0;
+			superBonus = 0;
 		}
-		bonus += Math.ceil(super.getbetTotal()*0.5);
-		return bonus;
+		return superBonus;
 	}
 	public String toString()
 	{
 		String result = " || The Vip:" + name +" || ID: "+ id;
-		result += " || Rewards: $" + bonus;
+		result += " || Rewards: $" + (superBonus + bonus);
 		return result;
 	}
 
@@ -62,6 +61,10 @@ public class Super extends VIP
 				System.out.println(name + " lost bet number " + (i+1));
 			}
 		}
+	}
+	
+	public boolean isSuper() {
+		return true;
 	}
 
 	public String getName() {

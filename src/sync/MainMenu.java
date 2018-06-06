@@ -20,6 +20,7 @@ public class MainMenu
 		System.out.println("Initialize Games. Please wait...");
 		String name;
 		int minBet, maxBet, houseMoney, totalGames;
+		String currentGameList;
 		while (games.hasNextLine()) {
 			name = games.next();
 			totalGames = games.nextInt();
@@ -37,11 +38,13 @@ public class MainMenu
 			}
 		}
 		System.out.println("All games are ready.");
+		currentGameList = "Available games: ";
 		for(int i = 0; i < allGames.size(); i++) {
-			System.out.print(" " + allGames.get(i).getVersion());
+			currentGameList += allGames.get(i).getVersion() + ", ";
 		}
+		System.out.println(currentGameList.substring(0, currentGameList.length()-2));
 
-		System.out.println("\n\nMain Menu\n1. Select a game\n"
+		System.out.println("\nMain Menu\n1. Select a game\n"
 				+ "2. Add a new player to the list\n3. Quit");
 		System.out.print("\nOption --> ");
 		choice = scan.next();
@@ -104,13 +107,12 @@ public class MainMenu
 			
 		}
 		for(int i = 0; i < allGames.size(); i++) {
-			
+			allGames.get(i).removeAllPlayers();
 			FileWriter fileOut = new FileWriter(new File(allGames.get(i).getVersion() + "_Game_Log.txt"));
 			allGames.get(i).getReport(fileOut);
 			fileOut.close();
 			System.out.println();
 		}
-	
 	}
 
 }

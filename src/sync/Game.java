@@ -69,6 +69,7 @@ public class Game {
 					System.out.println("\nThere are currently " + playerQ.size() + " players in line.");
 					System.out.print("How many players would you like to add?  --> ");
 					loops = scan.nextInt();
+					
 					for (int i = 0; i < loops; i++) {
 						addPlayer();
 					}
@@ -152,13 +153,29 @@ public class Game {
 	}
 
 	public void removePlayer(Player p) {
+		if (!p.getName().equals("Player")) {
+			p.addMoney(p.bonus());
+			System.out.println("\n" + p.getName() + " got 5% back in credit for being a rewards member!");
+			if(p.isSuper()) {
+				p.addMoney(p.superBonus());
+				System.out.println(p.getName() + " also got $" + p.superBonus() + " back for being a platinum rewards member!");
+			}
+			System.out.println("Total earned in rewards this session for " + p.getName() + ": " + (p.bonus()+ p.superBonus()));
+		}
 		players.remove(p);
 		currentPlayers--;
+	}
+	
+	public void removeAllPlayers() {
+		for(int i = 0; i < players.size(); i++) {
+			removePlayer(players.get(i));
+		}
 	}
 
 	public String getVersion() {
 		return name;
 	}
+	
 	public void getReport(FileWriter fileOut)
 	{
 		PrintWriter printWriter = new PrintWriter(fileOut);
