@@ -50,6 +50,7 @@ class Player {
 	}
 
 	public void makeBet(Scanner scan, int minBet, int maxBet) {
+		scan = new Scanner(System.in);
 		playedRound = true;
 		boolean finished = false;
 		while (!finished) {
@@ -76,7 +77,7 @@ class Player {
 							System.out.print("Amount of bet: ");
 							bet = scan.nextInt();
 							while (bet < minBet || bet > money || bet > maxBet) {
-								System.out.println("Bet is invalid. Please enter a valid bet amount!");
+								System.out.println("Bet is invalid. Please ensure the bet is in the betting range.");
 								System.out.print("Amount of bet: ");
 								bet = scan.nextInt();
 							}
