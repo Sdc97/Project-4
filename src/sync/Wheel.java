@@ -1,4 +1,4 @@
-package sync;
+
 // Class Wheel for CSCI 145 Project 2 Spring 18
 
 // Modified by: Steven Calvert, Boon C, Alex Neoh 
@@ -7,7 +7,7 @@ package sync;
 //   Class Wheel represents a roulette wheel and its operations.  Its
 //   data and methods are static because there is only one wheel.
 //************************************************************************
-
+package sync;
 import java.util.Random;
 
 class Wheel {

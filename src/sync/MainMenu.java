@@ -1,3 +1,13 @@
+/*  Java Program: Advance Roulette
+	Modified by: Steven Calvert, Boon C., Alex Neoh 
+	Class: MainMenu.java
+	Date: 6/5/2018
+	Description: Contain the main menu and 
+	the list of games for the game class
+
+	I certify that the code below is modified by me.
+	Exception(s): N/A
+ */
 package sync;
 
 import java.io.File;
