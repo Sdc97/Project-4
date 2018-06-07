@@ -135,6 +135,7 @@ class Player {
 						break;
 					case 4:
 						playing = 1;
+						finished = true;
 						break;
 					}
 				} else {
