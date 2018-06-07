@@ -52,7 +52,7 @@ public class MainMenu
 			currentGameList += allGames.get(i).getVersion() + ", ";
 		}
 		System.out.println(currentGameList.substring(0, currentGameList.length()-2));
-
+		System.out.println("Welcome to the roulette table");
 		System.out.println("\nMain Menu\n1. Select a game\n"
 				+ "2. Add a new player to the list\n3. Quit");
 		System.out.print("\nOption --> ");
