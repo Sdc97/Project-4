@@ -51,95 +51,98 @@ class Player {
 
 	public void makeBet(Scanner scan, int minBet, int maxBet) {
 		playedRound = true;
-		System.out.println("1.Enter bet");
-		System.out.println("2.Reload");
-		System.out.println("3.Skip this round");
-		System.out.println("4.Exit Game");
-		System.out.print("\nOption --> ");
-		try {
-		choice = scan.nextInt();
-		if (choice >= 1 && choice <= 4) {
-			switch (choice) {
-			case 1:
-				skips = 0;
-				betsThisRound = 0;
-				bets.clear();
-				betTypesArr.clear();
-				numberBetsArr.clear();
-				winningsThisRound.clear();
-				do {
-					number = 0;
-					count++;
-					System.out.println("Balance: " + money + " chips");
-					System.out.print("Amount of bet: ");
-					bet = scan.nextInt();
-					while (bet < minBet || bet > money || bet > maxBet) {
-						System.out.println("Bet is invalid. Please enter a valid bet amount!");
-						System.out.print("Amount of bet: ");
-						bet = scan.nextInt();
-					}
-					bets.add(bet);
-					money = money - bet;
-					betTotal += bet;
+		boolean finished = false;
+		while (!finished) {
+			System.out.println("1.Enter bet");
+			System.out.println("2.Reload");
+			System.out.println("3.Skip this round");
+			System.out.println("4.Exit Game");
+			System.out.print("\nOption --> ");
+			try {
+				choice = scan.nextInt();
+				if (choice >= 1 && choice <= 4) {
+					switch (choice) {
+					case 1:
+						skips = 0;
+						betsThisRound = 0;
+						bets.clear();
+						betTypesArr.clear();
+						numberBetsArr.clear();
+						winningsThisRound.clear();
+						do {
+							number = 0;
+							count++;
+							System.out.println("Balance: " + money + " chips");
+							System.out.print("Amount of bet: ");
+							bet = scan.nextInt();
+							while (bet < minBet || bet > money || bet > maxBet) {
+								System.out.println("Bet is invalid. Please enter a valid bet amount!");
+								System.out.print("Amount of bet: ");
+								bet = scan.nextInt();
+							}
+							bets.add(bet);
+							money = money - bet;
+							betTotal += bet;
 
-					Wheel.betOptions();
-					System.out.print("Option --> ");
-					betType = scan.nextInt();
-					while (betType < 1 || betType > 3) {
-						System.out.print("Please enter a correct bet type: ");
-						betType = scan.nextInt();
-					}
-					betTypesArr.add(betType);
+							Wheel.betOptions();
+							System.out.print("Option --> ");
+							betType = scan.nextInt();
+							while (betType < 1 || betType > 3) {
+								System.out.print("Please enter a correct bet type: ");
+								betType = scan.nextInt();
+							}
+							betTypesArr.add(betType);
 
-					if (betType == 3) {
-						System.out.print(
-								"Which number to bet on? Between " + Wheel.MIN_NUM + " and " + Wheel.MAX_NUM + ": ");
-						number = scan.nextInt();
-						while (number < Wheel.MIN_NUM || number > Wheel.MAX_NUM) {
-							System.out.print("That is not a valid number to bet on. \nRemember, the bet "
-									+ "must be between " + Wheel.MIN_NUM + " and " + Wheel.MAX_NUM + ": ");
-							number = scan.nextInt();
+							if (betType == 3) {
+								System.out.print("Which number to bet on? Between " + Wheel.MIN_NUM + " and "
+										+ Wheel.MAX_NUM + ": ");
+								number = scan.nextInt();
+								while (number < Wheel.MIN_NUM || number > Wheel.MAX_NUM) {
+									System.out.print("That is not a valid number to bet on. \nRemember, the bet "
+											+ "must be between " + Wheel.MIN_NUM + " and " + Wheel.MAX_NUM + ": ");
+									number = scan.nextInt();
+								}
+							}
+							numberBetsArr.add(number);
+							System.out.print("Make another bet?(y/n) --> ");
+							userInput = scan.next();
+							if ((userInput.equals("y") || userInput.equals("Y")) && betsThisRound < maxBetsPerRound) {
+								betsThisRound++;
+							}
+							if ((userInput.equals("y") || userInput.equals("Y")) && betsThisRound >= maxBetsPerRound) {
+								System.out.println("The maximum bets per round is " + maxBetsPerRound);
+							}
+						} while ((userInput.equals("y") || userInput.equals("Y")) && betsThisRound < maxBetsPerRound);
+						finished = true;
+						break;
+					case 2:
+						System.out.println("Enter the amount you want to reload by: ");
+						RELOAD_AMOUNT = scan.nextInt();
+						money += RELOAD_AMOUNT;
+						total_reload += RELOAD_AMOUNT;
+						System.out.println("Money available: " + money);
+						makeBet(scan, minBet, maxBet);
+						break;
+					case 3:
+						skips++;
+						playedRound = false;
+						if (skips > 2) {
+							System.out.println("Skipped too many rounds... Removing player from game.");
+							playing = 1;
 						}
+						finished = true;
+						break;
+					case 4:
+						playing = 1;
+						break;
 					}
-					numberBetsArr.add(number);
-					System.out.print("Make another bet?(y/n) --> ");
-					userInput = scan.next();
-					if((userInput.equals("y") || userInput.equals("Y")) && betsThisRound < maxBetsPerRound) {
-						betsThisRound++;
-					}
-					if((userInput.equals("y") || userInput.equals("Y")) && betsThisRound >= maxBetsPerRound) {
-						System.out.println("The maximum bets per round is " + maxBetsPerRound);
-					}
-				} while ((userInput.equals("y") || userInput.equals("Y")) && betsThisRound < maxBetsPerRound);
-				
-				break;
-			case 2:
-				System.out.println("Enter the amount you want to reload by: ");
-				RELOAD_AMOUNT = scan.nextInt();
-				money += RELOAD_AMOUNT;
-				total_reload += RELOAD_AMOUNT;
-				System.out.println("Money available: " + money);
-				makeBet(scan,minBet,maxBet);
-				break;
-			case 3:
-				skips++;
-				playedRound = false;
-				if(skips > 2) {
-					System.out.println("Skipped too many rounds... Removing player from game.");
-					playing = 1;
+				} else {
+					System.out.println("\nPlease enter a valid entry");
+					makeBet(scan, minBet, maxBet);
 				}
-				
-				break;
-			case 4:
-				playing = 1;
-				break;
+			} catch (InputMismatchException exception) {
+				System.out.println("\nInvalid input received.\n");
 			}
-		} else {
-			System.out.println("\nPlease enter a valid entry");
-			makeBet(scan,minBet,maxBet);
-		}
-		} catch (InputMismatchException exception) {
-			System.out.println("\nInvalid input received.\n");
 		}
 	}
 

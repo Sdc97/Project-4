@@ -30,7 +30,6 @@ public class VIP extends Player
 	public String toString()
 	{
 		String result = " || The Vip:" + name +" || ID: "+ id;
-		result += " || Rewards: " + bonus;
 		result += super.toString();
 		return result;
 	}

@@ -47,7 +47,6 @@ public class Super extends VIP
 	public String toString()
 	{
 		String result = " || The Vip:" + name +" || ID: "+ id;
-		result += " || Rewards: $" + (superBonus + bonus);
 		return result;
 	}
 
