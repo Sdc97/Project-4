@@ -142,6 +142,7 @@ class Player {
 				}
 			} catch (InputMismatchException exception) {
 				System.out.println("\nInvalid input received.\n");
+				scan = new Scanner(System.in);
 			}
 		}
 	}
